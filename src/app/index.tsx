@@ -1,3 +1,4 @@
+import { CategoryButton } from "@/components/category-button";
 import { Header } from "@/components/header";
 import { Text, View } from "react-native";
 
