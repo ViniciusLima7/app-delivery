@@ -5,6 +5,7 @@ import {
   Inter_700Bold,
   useFonts,
 } from "@expo-google-fonts/inter";
+import { Loading } from "@/components/loading";
 import { Slot } from "expo-router";
 import { SafeAreaView } from "react-native";
 
@@ -17,7 +18,7 @@ export default function Layout() {
   });
 
   if (!fontsLoaded) {
-    return;
+    return <Loading />;
   }
   return (
     <SafeAreaView className=" bg-slate-900 flex-1">
