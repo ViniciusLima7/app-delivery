@@ -1,5 +1,7 @@
+import { Button } from "@/components/button";
 import { PRODUCTS } from "@/utils/data/products";
 import { formatCurrency } from "@/utils/functions/format-currency";
+import { Feather } from "@expo/vector-icons";
 import { useLocalSearchParams } from "expo-router";
 import React from "react";
 import { Image, Text, View } from "react-native";
@@ -27,6 +29,15 @@ export default function Product() {
             {"\u2022"} {ingredient}
           </Text>
         ))}
+      </View>
+
+      <View className="p-5 pb-8 gap-5">
+        <Button>
+          <Button.Icon>
+            <Feather name="plus-circle" size={20} />
+          </Button.Icon>
+          <Button.Text>Adicionar ao pedido</Button.Text>
+        </Button>
       </View>
     </View>
   );
