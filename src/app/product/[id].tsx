@@ -1,4 +1,5 @@
 import { Button } from "@/components/button";
+import { LinkButton } from "@/components/link-button";
 import { PRODUCTS } from "@/utils/data/products";
 import { formatCurrency } from "@/utils/functions/format-currency";
 import { Feather } from "@expo/vector-icons";
@@ -38,6 +39,7 @@ export default function Product() {
           </Button.Icon>
           <Button.Text>Adicionar ao pedido</Button.Text>
         </Button>
+        <LinkButton title="Voltar ao Cardápio" href="/" />
       </View>
     </View>
   );
