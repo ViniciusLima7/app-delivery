@@ -3,11 +3,11 @@ import { Header } from "@/components/header";
 import { Input } from "@/components/input";
 import { LinkButton } from "@/components/link-button";
 import { Product } from "@/components/product";
-import { useCartStore } from "@/stores/cart-store";
+import { ProductCartProps, useCartStore } from "@/stores/cart-store";
 import { formatCurrency } from "@/utils/functions/format-currency";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Alert, ScrollView, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function Cart() {
@@ -19,6 +19,13 @@ export default function Cart() {
       0
     )
   );
+
+  function handleProductRemove(product: ProductCartProps) {
+    Alert.alert("Remover", `Deseja excluir ${product.title} do Cart?`, [
+      { text: "Cancelar" },
+      { text: "Remover", onPress: () => cartStore.remove(product.id) },
+    ]);
+  }
   return (
     <View className="flex-1 pt-8">
       <Header title="Seu Carrinho" />
@@ -31,7 +38,11 @@ export default function Cart() {
             {cartStore.products.length > 0 ? (
               <View className="border-b border-slate-700">
                 {cartStore.products.map((product) => (
-                  <Product key={product.id} data={product} />
+                  <Product
+                    key={product.id}
+                    data={product}
+                    onPress={() => handleProductRemove(product)}
+                  />
                 ))}
               </View>
             ) : (
@@ -45,7 +56,7 @@ export default function Cart() {
                 {total}
               </Text>
             </View>
-            <Input placeholder="Informe o endereçod e entrega como rua, bairro, CEP, número" />
+            <Input placeholder="Informe o endereço de entrega como rua, bairro, CEP, número" />
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>
