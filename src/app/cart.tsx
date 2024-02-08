@@ -6,13 +6,17 @@ import { Product } from "@/components/product";
 import { ProductCartProps, useCartStore } from "@/stores/cart-store";
 import { formatCurrency } from "@/utils/functions/format-currency";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "expo-router";
 import React, { useState } from "react";
-import { Alert, ScrollView, Text, View } from "react-native";
+import { Alert, Linking, ScrollView, Text, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
+const PHONE_NUMBER = "5511957713324";
 
 export default function Cart() {
   const [address, setAddress] = useState("");
   const cartStore = useCartStore();
+  const navigation = useNavigation();
   const total = formatCurrency(
     cartStore.products.reduce(
       (totalQuantity, product) =>
@@ -41,6 +45,11 @@ export default function Cart() {
     \n Entregar em ${address}
     ${products}
     \n Valor Total:  ${total}`;
+    Linking.openURL(
+      `http://api.whatsapp.com/send?phone=${PHONE_NUMBER}&text=${message}`
+    );
+    cartStore.clear();
+    navigation.goBack();
   }
 
   return (
@@ -76,6 +85,9 @@ export default function Cart() {
             <Input
               placeholder="Informe o endereço de entrega como rua, bairro, CEP, número"
               onChangeText={setAddress}
+              blurOnSubmit
+              onSubmitEditing={handleOrder}
+              returnKeyType="next"
             />
           </View>
         </ScrollView>
